@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JSFiddle ueLp7yab</title>
+
+  <style>
+    
+  </style>
+
+  
+</head>
+<body>
+  <!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QRコードリーダー</title>
+
+<style>
+  body {
+      font-family: "Segoe UI", sans-serif;
+          background: #101010;
+              color: white;
+                  text-align: center;
+                      padding: 20px;
+                        }
+                          h1 {
+                              color: #00e0ff;
+                                  margin-bottom: 20px;
+                                    }
+                                      #reader {
+                                          width: 300px;
+                                              margin: 0 auto;
+                                                  border-radius: 12px;
+                                                      overflow: hidden;
+                                                        }
+                                                          #result {
+                                                              margin-top: 20px;
+                                                                  padding: 12px;
+                                                                      background: #1e1e1e;
+                                                                          border-radius: 8px;
+                                                                              word-break: break-all;
+                                                                                }
+                                                                                </style>
+                                                                                </head>
+                                                                                <body>
+
+                                                                                <h1>QRコードリーダー</h1>
+
+                                                                                <div id="reader"></div>
+                                                                                <div id="result">スキャン結果がここに表示されます</div>
+
+                                                                                <script src="https://unpkg.com/html5-qrcode@2.3.8"></script>
+
+                                                                                <script>
+                                                                                  const resultDiv = document.getElementById("result");
+
+                                                                                    function onScanSuccess(decodedText) {
+                                                                                        resultDiv.innerHTML = "読み取り結果:<br>" + decodedText;
+                                                                                          }
+
+                                                                                            function onScanError(errorMessage) {
+                                                                                                // 無視OK
+                                                                                                  }
+
+                                                                                                    // 背面カメラを優先して使用
+                                                                                                      const config = {
+                                                                                                          fps: 10,
+                                                                                                              qrbox: 250,
+                                                                                                                  videoConstraints: {
+                                                                                                                        facingMode: { exact: "environment" }  // ★ 背面カメラ強制
+                                                                                                                            }
+                                                                                                                              };
+
+                                                                                                                                let html5QrCode = new Html5Qrcode("reader");
+
+                                                                                                                                  html5QrCode.start(
+                                                                                                                                      { facingMode: { exact: "environment" } }, // ★ この指定が重要
+                                                                                                                                          config,
+                                                                                                                                              onScanSuccess,
+                                                                                                                                                  onScanError
+                                                                                                                                                    ).catch(err => {
+                                                                                                                                                        resultDiv.textContent = "背面カメラが開けません: " + err;
+                                                                                                                                                          });
+                                                                                                                                                          </script>
+
+                                                                                                                                                          </body>
+                                                                                                                                                          </html>
+
+  <script>
+    
+  </script>
+</body>
+</html>
